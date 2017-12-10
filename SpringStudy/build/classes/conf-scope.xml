@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans.xsd">
+    
+    <!-- 要引入元素p，要在文件头xmlns定义元素p，关联car和boss -->
+    <!-- Spring中的scope类是bean的作用域，也可以自定义scope（不提倡） -->
+    
+   <bean id="car" class="com.ZeraNanDee.scope.Car" scope="prototype"></bean> 
+   <bean id="boss1" class="com.ZeraNanDee.scope.Boss" p:car-ref="car"></bean> 
+   <bean id="boss2" class="com.ZeraNanDee.scope.Boss" p:car-ref="car"></bean> 
+   <bean id="boss3" class="com.ZeraNanDee.scope.Boss" p:car-ref="car"></bean> 
+    
+    
+ </beans>

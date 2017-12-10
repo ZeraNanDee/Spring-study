@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!-- 利用SpringIOC容器的JAVA反射机制用配置文件调用bean并自动实例化对象 -->
+    <!-- 调用默认构造器 -->
+ <bean id="helloworldwithnoargs" class="com.ZeraNanDee.test1.HelloWorldImpl"></bean>
+ 
+ <!-- 调用有参构造器,指定构造器参数 -->
+ <bean id="helloworldwithargs" class="com.ZeraNanDee.test1.HelloWorldImpl">
+ <constructor-arg index="0" value="Hello Args!"></constructor-arg>
+ </bean>
+ 
+ <!-- 调用静态Bean工厂方式,factory-method是调用反射中的newInstance对HelloWorldStaticFactory中的HelloWorldImpl类加载实例化 -->
+ <bean id="helloworldstaticfactory" class="com.ZeraNanDee.test1.HelloWorldStaticFactory"
+ factory-method="newInstance">
+ <constructor-arg index="0" value="hello static factory!"></constructor-arg>
+ </bean>
+ 
+ <!-- 定义实例工厂Bean，实例化一次就可以 （解耦性强） -->
+ <bean id="beanInstancefactory" class="com.ZeraNanDee.test1.HelloWorldInstanceFactory"  />
+ <!-- 调用实例工厂Bean创建Bean（用Bean管理Bean），bean每次调用bean工厂更加方便 -->
+<bean id="helloworldInstance" factory-bean="beanInstancefactory"  factory-method="newInstance">
+ <constructor-arg index="0" value="hello Instance factory!"></constructor-arg>
+ </bean> 
+
+    <!-- 这个是用来测试bean生命周期，bean的后置方法，还有销毁等-->
+    <bean name="girfriend" class="com.ZeraNanDee.test4.Girfriend" 
+    init-method="Init"
+    destroy-method="destroy">
+    <property name="name" value="中村有沙" ></property>
+    </bean>
+    
+    <!-- 这个是bean的后置处理器，很方便直接实现接口就行,MyBeanPostProcessor这个类作用域是这文件里所有bean-->
+    <bean class="com.ZeraNanDee.test4.MyBeanPostProcessor"></bean>
+    
+ </beans>
